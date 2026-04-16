@@ -1,0 +1,22 @@
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.gradle/
+build/
+
+# macOS
+.DS_Store
+
+# Gradle
+.gradle/
+build/
+
+# Local configuration
+local.properties
+
+# Android generated
+capture/
+memory.stackdump
