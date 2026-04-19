@@ -10,7 +10,7 @@ import kotlin.math.sin
  *   - Pool of [POOL_SIZE] particles stored in flat parallel float arrays
  *     (better cache locality than an array of objects)
  *   - Ring buffer: [oldest] wraps around so the pool never allocates after init
- *   - Delta-time normalised to 60 fps so tempo matches the web version
+ *   - Delta-time normalized to 60 fps so tempo matches the web version
  *   - Particles bounce off the canvas edges (same sign-flip logic as JS)
  *   - [buildHeatmap] maps live particles onto the tile grid to brighten off-tiles
  *
@@ -43,7 +43,7 @@ class ParticleSystem {
      * Advances all live particles by one time step.
      *
      * [frameNanos] is the Compose frame timestamp from [withFrameNanos].
-     * Delta time is normalised so that 16.67 ms (one frame at 60 fps) = dt 1.0,
+     * Delta time is normalized so that 16.67 ms (one frame at 60 fps) = dt 1.0,
      * matching the JS `deltaTime = (now - lastUpdate) / 16.67` factor.
      */
     fun update(frameNanos: Long) {
@@ -58,13 +58,13 @@ class ParticleSystem {
             var nx = px[i] + pvx[i] * dt
             var ny = py[i] + pvy[i] * dt
 
-            // Bounce off horizontal walls (mirrors JS x overflow/underflow)
-            if (nx > width || nx < 0f) {
+            // Bounce off horizontal walls
+            if (nx !in 0f..width) {
                 pvx[i] = -pvx[i]
                 nx += pvx[i] * dt
             }
             // Bounce off vertical walls
-            if (ny > height || ny < 0f) {
+            if (ny !in 0f..height) {
                 pvy[i] = -pvy[i]
                 ny += pvy[i] * dt
             }
@@ -118,11 +118,4 @@ class ParticleSystem {
         return map
     }
 
-    // ── Lifecycle ─────────────────────────────────────────────────────────────
-
-    /** Kills all particles and resets the frame clock (e.g. after a pause). */
-    fun reset() {
-        life.fill(0f)
-        lastNanos = 0L
-    }
 }

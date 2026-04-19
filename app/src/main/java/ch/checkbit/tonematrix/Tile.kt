@@ -7,7 +7,6 @@ package ch.checkbit.tonematrix
  * Event IDs are assigned externally by the ViewModel + SynthInstrument and stored
  * here so they can be retrieved later to unschedule the note.
  *
- * Mirrors the JS Tile class exactly.
  */
 class Tile {
 
@@ -17,8 +16,6 @@ class Tile {
     fun isEmpty(): Boolean = notes.isEmpty()
 
     fun hasNote(instrumentId: Int): Boolean = notes.containsKey(instrumentId)
-
-    fun getNote(instrumentId: Int): Int? = notes[instrumentId]
 
     fun addNote(instrumentId: Int, eventId: Int) {
         notes[instrumentId] = eventId

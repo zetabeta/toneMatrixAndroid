@@ -50,8 +50,6 @@ class Sequencer(
 
     private var job: Job? = null
 
-    val isRunning: Boolean get() = job?.isActive == true
-
     // ── Lifecycle ─────────────────────────────────────────────────────────────
 
     /**

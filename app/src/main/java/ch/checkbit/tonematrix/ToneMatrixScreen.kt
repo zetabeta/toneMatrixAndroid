@@ -30,6 +30,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,7 +43,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
  *
  * Layout (top → bottom):
  *   Title + subtitle
- *   Grid canvas  (square, full width; loading spinner overlaid while initialising)
+ *   Grid canvas  (square, full width; loading spinner overlaid while initializing)
  *   Controls row (mute toggle | Clear Notes | instrument switcher)
  */
 @Composable
@@ -68,13 +69,13 @@ fun ToneMatrixScreen(
 
         // ── Title ─────────────────────────────────────────────────────────────
         Text(
-            text = "ToneMatrix Redux",
+            text = stringResource(R.string.app_name),
             color = MaterialTheme.colorScheme.onBackground,
             fontSize = 24.sp,
             fontWeight = FontWeight.W100,
         )
         Text(
-            text = "A pentatonic step sequencer. Click tiles and make music.",
+            text = stringResource(R.string.app_subtitle),
             color = MaterialTheme.colorScheme.onSurface,
             fontSize = 12.sp,
             modifier = Modifier.padding(top = 4.dp, bottom = 10.dp),
@@ -108,12 +109,12 @@ fun ToneMatrixScreen(
                 .fillMaxWidth()
                 .padding(top = 8.dp),
         ) {
-            // Mute toggle — mirrors the JS muteButton element
+            // Mute toggle
             IconButton(onClick = { viewModel.setMuted(!isMuted) }) {
                 Icon(
                     imageVector = if (isMuted) Icons.AutoMirrored.Filled.VolumeOff
                                   else Icons.AutoMirrored.Filled.VolumeUp,
-                    contentDescription = if (isMuted) "Unmute" else "Mute",
+                    contentDescription = stringResource(if (isMuted) R.string.unmute else R.string.mute),
                     tint = if (isMuted) MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f) 
                            else MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -124,7 +125,7 @@ fun ToneMatrixScreen(
                 Icon(
                     imageVector = if (isDarkMode) Icons.Default.LightMode
                                   else Icons.Default.DarkMode,
-                    contentDescription = if (isDarkMode) "Light Mode" else "Dark Mode",
+                    contentDescription = stringResource(if (isDarkMode) R.string.light_mode else R.string.dark_mode),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
@@ -139,7 +140,7 @@ fun ToneMatrixScreen(
                 ),
             ) {
                 Text(
-                    text = "Clear Notes",
+                    text = stringResource(R.string.clear_notes),
                     fontWeight = FontWeight.Bold,
                     fontSize = 14.sp,
                 )
@@ -149,14 +150,14 @@ fun ToneMatrixScreen(
 
             // Instrument switcher — sine (white) / sawtooth (orange)
             InstrumentButton(
-                label = "SINE",
+                label = stringResource(R.string.instrument_sine),
                 color = MaterialTheme.colorScheme.primary,
                 active = currentInstrument == 0,
                 onClick = { viewModel.setCurrentInstrument(0) },
             )
             Spacer(modifier = Modifier.width(4.dp))
             InstrumentButton(
-                label = "SAW",
+                label = stringResource(R.string.instrument_saw),
                 color = MaterialTheme.colorScheme.secondary,
                 active = currentInstrument == 1,
                 onClick = { viewModel.setCurrentInstrument(1) },

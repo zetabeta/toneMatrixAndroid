@@ -185,10 +185,6 @@ class ToneMatrixViewModel(application: Application) : AndroidViewModel(applicati
         if (id in 0 until NUM_INSTRUMENTS) _currentInstrument.value = id
     }
 
-    fun setDarkMode(enabled: Boolean) {
-        _isDarkMode.value = enabled
-    }
-
     fun toggleDarkMode() {
         _isDarkMode.value = !_isDarkMode.value
     }
@@ -196,7 +192,7 @@ class ToneMatrixViewModel(application: Application) : AndroidViewModel(applicati
     // ── Internal ──────────────────────────────────────────────────────────────
 
     /**
-     * Rebuilds the immutable [_gridTiles] snapshot and [_shareData] from the
+     * Rebuilds the immutable [_gridTiles] snapshot from the
      * current [gridState]. Must only be called from the main thread.
      *
      * Replacing [_gridTiles].value with a new IntArray is the only write the

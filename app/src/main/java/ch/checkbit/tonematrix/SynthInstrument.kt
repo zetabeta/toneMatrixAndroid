@@ -15,7 +15,7 @@ import kotlin.math.*
  * via SoundPool on demand.
  *
  * Mirrors the JS SynthInstrument class. Instead of Tone.js offline rendering +
- * Transport scheduling, notes are synthesised into WAV files at initialisation
+ * Transport scheduling, notes are synthesized into WAV files at initialization
  * time and loaded into SoundPool. Playback is then triggered immediately by the
  * sequencer loop (Step 5) rather than via a scheduled transport callback.
  *
