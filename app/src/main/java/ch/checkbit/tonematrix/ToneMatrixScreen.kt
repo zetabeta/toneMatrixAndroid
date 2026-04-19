@@ -1,4 +1,4 @@
-package dev.lupine.tonematrix
+package ch.checkbit.tonematrix
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

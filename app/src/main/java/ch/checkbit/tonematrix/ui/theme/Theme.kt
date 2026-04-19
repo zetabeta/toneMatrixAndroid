@@ -1,4 +1,4 @@
-package dev.lupine.tonematrix.ui.theme
+package ch.checkbit.tonematrix.ui.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme

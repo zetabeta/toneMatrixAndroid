@@ -1,4 +1,4 @@
-package dev.lupine.tonematrix
+package ch.checkbit.tonematrix
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -1,4 +1,4 @@
-package dev.lupine.tonematrix
+package ch.checkbit.tonematrix
 
 import android.content.Context
 import android.media.AudioAttributes

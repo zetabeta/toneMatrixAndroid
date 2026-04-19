@@ -1,4 +1,4 @@
-package dev.lupine.tonematrix
+package ch.checkbit.tonematrix
 
 /**
  * A single cell in the sequencer grid.

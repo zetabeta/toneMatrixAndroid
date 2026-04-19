@@ -1,4 +1,4 @@
-package dev.lupine.tonematrix
+package ch.checkbit.tonematrix
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

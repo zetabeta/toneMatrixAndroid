@@ -1,4 +1,4 @@
-package dev.lupine.tonematrix
+package ch.checkbit.tonematrix
 
 /**
  * The 16×16 data model for the sequencer grid.

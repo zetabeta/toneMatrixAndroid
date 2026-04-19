@@ -1,4 +1,4 @@
-package dev.lupine.tonematrix
+package ch.checkbit.tonematrix
 
 import android.graphics.BlurMaskFilter
 import androidx.compose.foundation.Canvas
@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
+
 
 private val SAWTOOTH_COLOR = Color(0xFFFF9500)
 private const val SAWTOOTH_BIT = 2

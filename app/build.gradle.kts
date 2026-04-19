@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "dev.lupine.tonematrix"
+    namespace = "ch.checkbit.tonematrix"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "dev.lupine.tonematrix"
+        applicationId = "ch.checkbit.tonematrix"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
