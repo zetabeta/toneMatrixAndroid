@@ -8,6 +8,7 @@ import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.drag
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -19,7 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
@@ -29,7 +29,6 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 
 
-private val SAWTOOTH_COLOR = Color(0xFFFF9500)
 private const val SAWTOOTH_BIT = 2
 
 private const val W = ToneMatrixViewModel.WIDTH
@@ -68,6 +67,9 @@ fun GridCanvas(
     getTileValue: (x: Int, y: Int) -> Boolean = { _, _ -> false },
 ) {
     val density = LocalDensity.current.density
+    val colorSine = MaterialTheme.colorScheme.primary
+    val colorSaw  = MaterialTheme.colorScheme.secondary
+    val backgroundColor = MaterialTheme.colorScheme.background
 
     // BlurMaskFilter instances — cached per density, never recreated mid-session
     val blurActive = remember(density) { BlurMaskFilter(2f * density, BlurMaskFilter.Blur.NORMAL) }
@@ -124,7 +126,7 @@ fun GridCanvas(
         modifier = modifier
             .fillMaxWidth()
             .aspectRatio(1f)
-            .background(Color.Black)
+            .background(backgroundColor)
             // Offscreen compositing ensures BlurMaskFilter is applied correctly:
             // each tile's blur and alpha are resolved into the offscreen buffer
             // before the layer is composited onto the screen, preventing blur
@@ -223,7 +225,7 @@ fun GridCanvas(
                         }
                     }
 
-                    paint.color = if (isSawtooth) SAWTOOTH_COLOR else Color.White
+                    paint.color = if (isSawtooth) colorSaw else colorSine
                     paint.alpha = alpha
 
                     canvas.drawRoundRect(

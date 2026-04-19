@@ -93,6 +93,9 @@ class ToneMatrixViewModel(application: Application) : AndroidViewModel(applicati
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
+    private val _isDarkMode = MutableStateFlow(true)
+    val isDarkMode: StateFlow<Boolean> = _isDarkMode.asStateFlow()
+
     // ── Initialisation ────────────────────────────────────────────────────────
 
     private var eventIdCounter = 0
@@ -180,6 +183,14 @@ class ToneMatrixViewModel(application: Application) : AndroidViewModel(applicati
      */
     fun setCurrentInstrument(id: Int) {
         if (id in 0 until NUM_INSTRUMENTS) _currentInstrument.value = id
+    }
+
+    fun setDarkMode(enabled: Boolean) {
+        _isDarkMode.value = enabled
+    }
+
+    fun toggleDarkMode() {
+        _isDarkMode.value = !_isDarkMode.value
     }
 
     // ── Internal ──────────────────────────────────────────────────────────────

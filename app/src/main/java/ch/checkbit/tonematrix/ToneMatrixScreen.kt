@@ -14,12 +14,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.automirrored.filled.VolumeOff
 import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,13 +52,14 @@ fun ToneMatrixScreen(
     val gridTiles         by viewModel.gridTiles.collectAsStateWithLifecycle()
     val playheadX         by viewModel.playheadX.collectAsStateWithLifecycle()
     val isMuted           by viewModel.isMuted.collectAsStateWithLifecycle()
+    val isDarkMode        by viewModel.isDarkMode.collectAsStateWithLifecycle()
     val isLoading         by viewModel.isLoading.collectAsStateWithLifecycle()
     val currentInstrument by viewModel.currentInstrument.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(MaterialTheme.colorScheme.background)
             .systemBarsPadding()
             .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -65,13 +69,13 @@ fun ToneMatrixScreen(
         // ── Title ─────────────────────────────────────────────────────────────
         Text(
             text = "ToneMatrix Redux",
-            color = Color(0xFFDDDDDD),
+            color = MaterialTheme.colorScheme.onBackground,
             fontSize = 24.sp,
             fontWeight = FontWeight.W100,
         )
         Text(
             text = "A pentatonic step sequencer. Click tiles and make music.",
-            color = Color(0xFF777777),
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 12.sp,
             modifier = Modifier.padding(top = 4.dp, bottom = 10.dp),
         )
@@ -90,7 +94,7 @@ fun ToneMatrixScreen(
             )
             if (isLoading) {
                 CircularProgressIndicator(
-                    color    = Color.White,
+                    color    = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(48.dp),
                 )
             }
@@ -110,17 +114,28 @@ fun ToneMatrixScreen(
                     imageVector = if (isMuted) Icons.AutoMirrored.Filled.VolumeOff
                                   else Icons.AutoMirrored.Filled.VolumeUp,
                     contentDescription = if (isMuted) "Unmute" else "Mute",
-                    tint = if (isMuted) Color(0xFF666666) else Color(0xFFAAAAAA),
+                    tint = if (isMuted) MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f) 
+                           else MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+
+            // Theme toggle
+            IconButton(onClick = { viewModel.toggleDarkMode() }) {
+                Icon(
+                    imageVector = if (isDarkMode) Icons.Default.LightMode
+                                  else Icons.Default.DarkMode,
+                    contentDescription = if (isDarkMode) "Light Mode" else "Dark Mode",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
 
             // Clear Notes — mirrors the JS #clearnotes button
             OutlinedButton(
                 onClick = { viewModel.clearAll() },
-                border = BorderStroke(1.dp, Color(0xFF808080)),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
                 colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor   = Color(0xFFDDDDDD),
-                    containerColor = Color(0xFF333333),
+                    contentColor   = MaterialTheme.colorScheme.onBackground,
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
                 ),
             ) {
                 Text(
@@ -135,14 +150,14 @@ fun ToneMatrixScreen(
             // Instrument switcher — sine (white) / sawtooth (orange)
             InstrumentButton(
                 label = "SINE",
-                color = Color.White,
+                color = MaterialTheme.colorScheme.primary,
                 active = currentInstrument == 0,
                 onClick = { viewModel.setCurrentInstrument(0) },
             )
             Spacer(modifier = Modifier.width(4.dp))
             InstrumentButton(
                 label = "SAW",
-                color = Color(0xFFFF9500),
+                color = MaterialTheme.colorScheme.secondary,
                 active = currentInstrument == 1,
                 onClick = { viewModel.setCurrentInstrument(1) },
             )
